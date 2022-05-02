@@ -36,16 +36,15 @@ echo "########## CREATING NODES ##########"
 read -p "Enter number of nodes: " number
 for i in $(seq 1 $number)
 do
+  node_name=""
   if [ $i -le 9 ]
   then
     node_name="node00"$i
-    echo "########## CREATING "$node_name" ##########"
-    multipass launch --name $node_name --cpus 2 --mem 5G --disk 6G --cloud-init multipass.yaml 
   else
     node_name="node0"$i
-    echo "########## CREATING "$node_name" ##########"
-    multipass launch --name $node_name --cpus 2 --mem 5G --disk 6G --cloud-init multipass.yaml 
   fi
+  echo "########## CREATING "$node_name" ##########"
+  multipass launch --name $node_name --cpus 2 --mem 1G --disk 3G --cloud-init multipass.yaml 
   echo
   
   #echo "########## MOUNTING SHARED FOLDER ON "$node_name" MULTIPASS INSTANCE ##########"
@@ -55,14 +54,8 @@ do
   echo "########## INSTALLING K3S AGENT ON "$node_name" ##########"
   node_ip="$(multipass list | tail -n -1 | awk '{ print $3 }')"
   k3s_token=$(sudo cat /var/lib/rancher/k3s/server/node-token)
-  
-  if [ $i -eq 1 ]
-  then
-    remote_cmd="'curl -sfL https://get.k3s.io | K3S_URL=https://"$host_ip":6443 K3S_TOKEN="$k3s_token" sh -s - --node-label node-type=factory-components'"
-  else
-    remote_cmd="'curl -sfL https://get.k3s.io | K3S_URL=https://"$host_ip":6443 K3S_TOKEN="$k3s_token" sh -s - --node-label node-type=multipass'"
-  fi
-
+  remote_cmd="'curl -sfL https://get.k3s.io | K3S_URL=https://"$host_ip":6443 K3S_TOKEN="$k3s_token" sh -s - --node-label node-type=multipass'"
+  echo $remote_cmd
   ssh -o StrictHostKeyChecking=no ubuntu@$node_ip \'$remote_cmd\'
   echo
   
