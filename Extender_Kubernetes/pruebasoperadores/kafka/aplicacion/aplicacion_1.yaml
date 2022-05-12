@@ -1,0 +1,20 @@
+apiVersion: misrecursos.aplicacion/v1alpha4
+kind: Aplicacion
+metadata:
+  name: aplicacion-de-prueba-kafka
+spec:
+  componentes:
+    - name: productor
+      image: julencuadra/componente:productor
+      previous: Ninguno
+      next: transformador
+    - name: transformador
+      image: julencuadra/componente:transformador
+      previous: productor
+      next: consumidor
+    - name: consumidor
+      image: julencuadra/componente:consumidor
+      previous: transformador
+      next: Ninguno
+  replicas: 1
+  desplegar: true
