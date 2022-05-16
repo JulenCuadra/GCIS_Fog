@@ -1,8 +1,8 @@
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-export PATH=$PATH:/home/julen/.linkerd2/bin
 linkerd check --pre
 echo ######### INSTALANDO LINKERD EN EL CLUSTER ########
 linkerd install | kubectl apply -f -
+export PATH=$PATH:/home/julen/.linkerd2/bin
 echo ######### COMPROBANDO LA INSTALACION ########
 linkerd check
 echo ######### INYECTO EL PROXY DE LINKERD ########
