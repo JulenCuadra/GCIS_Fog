@@ -1,18 +1,18 @@
 apiVersion: misrecursos.aplicacion/v1alpha4
 kind: Aplicacion
 metadata:
-  name: aplicacion-de-prueba-kafka-1
+  name: aplicacion-de-prueba-kafka-2
 spec:
   componentes:
-    - name: productor-1
-      image: julencuadra/componente:productor-1
+    - name: productor-2
+      image: julencuadra/componente:productor-2
       previous: Ninguno
       next: transformador
     - name: transformador
       image: julencuadra/componente:transformador
       previous: productor
       next: consumidor
-    - name: consumidor-1
+    - name: consumidor-2
       image: julencuadra/componente:consumidor
       previous: transformador
       next: Ninguno
