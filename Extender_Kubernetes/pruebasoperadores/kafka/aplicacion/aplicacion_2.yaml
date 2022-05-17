@@ -12,9 +12,10 @@ spec:
       image: julencuadra/componente:transformador
       previous: productor
       next: consumidor
+      permanente: True
     - name: consumidor-2
       image: julencuadra/componente:consumidor
       previous: transformador
       next: Ninguno
   replicas: 1
-  desplegar: true
+  desplegar: false
