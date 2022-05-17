@@ -65,16 +65,30 @@ def conciliar_spec_status(objeto, cliente):
 	# ESTO ES UNA PRUEBA HASTA QUE PUEDA ACCEDER AL STATUS
 	# print(a)
 	# La aplicación crea los componentes que la forman.
+
+
 	if objeto['spec']['desplegar'] == True:
-		for i in objeto['spec']['componentes']:
-			for j in range(objeto['spec']['replicas']): # No me convence el aplicar así las replicas
-				componente = tipos.componente_recurso(i['name'] + '-' + str(j + 1) + '-' +objeto['metadata']['name'],
-													  i['image'],
-													  i['previous'],
-													  i['next'])
-				# Creo que es mejor aplicar algún label a los componentes en función de que aplicación formen.
-				# Si no distinguimos los nombres bien surge el problema de que los nombres de los componentes al solicitar dos aplicaciones colisionan.
-				cliente.create_namespaced_custom_object(grupo, 'v1alpha1', namespace, 'componentes', componente)
+		listado_componentes_desplegados = cliente.list_namespaced_custom_object(grupo, 'v1alpha1', namespace, 'componentes')
+		for i in objeto['spec']['componentes']: # Por cada componente de la aplicacion a desplegar
+			permanente = False
+			try:
+				permanente = i['permanente']
+			except KeyError:
+				pass
+			if (permanente != True):  # Si el componente de la aplicacion esta marcado como permanente y es alguno de los componentes ya desplegados en el cluster y marcado como permanente.
+				crear_componentes(cliente, i, objeto)
+			else:
+				encontrado = False
+				for h in listado_componentes_desplegados['items']:  # Por cada componente desplegado en el cluster
+					if ('componente-' + i['name']) == h['metadata']['name']:
+						encontrado = True
+				if encontrado:
+					pass
+				else:
+					crear_componentes(cliente, i, objeto)
+
+
+
 	elif objeto['spec']['desplegar'] == False:
 		pass
 
@@ -97,15 +111,30 @@ def conciliar_spec_status(objeto, cliente):
 	# 		# for i in aplicacion_deseada['status']['replicas'] - aplicacion_desplegada['spec']['replicas']:
 	# 		# 	desplegar_replica()
 
+def crear_componentes(cliente, componente, app):
+	for j in range(app['spec']['replicas']):  # No me convence el aplicar así las replicas
+		componente = tipos.componente_recurso(componente['name'] + '-' + str(j + 1) + '-' + app['metadata']['name'],
+											  componente['image'],
+											  componente['previous'],
+											  componente['next'])
+		# Creo que es mejor aplicar algún label a los componentes en función de que aplicación formen.
+		# Si no distinguimos los nombres bien surge el problema de que los nombres de los componentes al solicitar dos aplicaciones colisionan.
+		cliente.create_namespaced_custom_object(grupo, 'v1alpha1', namespace, 'componentes', componente)
 
 def eliminar_componentes(aplicacion): # Ya no borrará deployments.
 	cliente=client.CustomObjectsApi()
 
 	if aplicacion['spec']['desplegar'] == True:
 		for i in aplicacion['spec']['componentes']:
-			for j in range(aplicacion['spec']['replicas']):
-				a = i['name'] + '-' + str(j + 1) + '-' +aplicacion['metadata']['name']
-				cliente.delete_namespaced_custom_object(grupo, 'v1alpha1', namespace, 'componentes', tipos.componente_recurso(i['name'] + '-' + str(j + 1) + '-' +aplicacion['metadata']['name'], i['image'], i['previous'], i['next'])['metadata']['name'])
+			permanente = False
+			try:
+				permanente = i['permanente']
+			except KeyError:
+				pass
+			if permanente != True:
+				for j in range(aplicacion['spec']['replicas']):
+					a = i['name'] + '-' + str(j + 1) + '-' +aplicacion['metadata']['name']
+					cliente.delete_namespaced_custom_object(grupo, 'v1alpha1', namespace, 'componentes', tipos.componente_recurso(i['name'] + '-' + str(j + 1) + '-' +aplicacion['metadata']['name'], i['image'], i['previous'], i['next'])['metadata']['name'])
 	elif aplicacion['spec']['desplegar'] == False:
 		pass
 if __name__ == '__main__':

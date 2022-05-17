@@ -146,6 +146,7 @@ def deployment(componente, replicas): # Añadir replicas como input
                 },
                 'spec': {
                     'containers': [{
+                        'imagePullPolicy': 'Always',
                         'name': componente['metadata']['name'],
                         'image': componente['spec']['image'],
                         'ports': [{
@@ -155,7 +156,6 @@ def deployment(componente, replicas): # Añadir replicas como input
                     'nodeSelector': {
                         'node-type': 'multipass'
                     },
-                    'imagePullPolicy': 'Always'
                 },
             }
         }

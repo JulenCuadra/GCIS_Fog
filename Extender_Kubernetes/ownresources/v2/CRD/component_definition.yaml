@@ -22,6 +22,8 @@ spec:
                   type: string
                 next:
                   type: string
+                permanente:
+                  type: boolean
             status:
               type: object
               properties:

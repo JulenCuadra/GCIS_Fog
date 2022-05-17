@@ -4,8 +4,8 @@ from json import dumps, loads
 
 
 def func_transformador():
-    config.load_kube_config("/etc/rancher/k3s/k3s.yaml")
-    # config.load_incluster_config()
+    # config.load_kube_config("/etc/rancher/k3s/k3s.yaml")
+    config.load_incluster_config()
     cliente = client.CoreV1Api()
     servicios =cliente.list_namespaced_service("default")
     j = 0

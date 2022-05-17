@@ -13,6 +13,7 @@ def controlador():
 
 	# config.load_kube_config("/etc/rancher/k3s/k3s.yaml")  # Cargamos la configuracion del cluster
 	config.load_incluster_config()
+
 	cliente = client.CustomObjectsApi()  # Creamos el cliente de la API
 
 	cliente_extension = client.ApiextensionsV1Api() # Cliente para añadir el CRD.
