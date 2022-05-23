@@ -1,23 +1,24 @@
+#!/bin/bash
 echo "########## DELETING K3S FROM THE CLUSTER ##########"
 kubectl delete deploy --all
 kubectl delete nodes --all
 echo "########## SCANNING AVAILABLE NODES ##########"
-number = 11 
+number=11
 for i in $(seq 1 $number)
 do
-  node_ip = "worker"$i
+  node_ip="worker"$i
   ping -c 1 $node_ip &> /dev/null
   if [[ $? -ne 0 ]]; then
     echo "ERROR: "$node_ip" not available"
-  else 
+  else
     echo "########## UNINSTALLING K3S AGENT ON "$node_ip" ##########"
-    remote_cmd="sudo /usr/local/bin/k3s-killall.sh" # Necesario desde los workers o con hacerlo en el master vale?
+    remote_cmd="'echo 123lau | sudo -S /usr/local/bin/k3s-agent-uninstall.sh'"
     echo $remote_cmd
+    ssh -o StrictHostKeyChecking=no $node_ip \'$remote_cmd\'
     echo
-    ssh -o StrictHostKeyChecking=no ubuntu@$node_ip \'$remote_cmd\' # El ssh sería directamente a workeri
-    remote_cmd="sudo /usr/local/bin/k3s-uninstall.sh"
-    echo $remote_cmd
-    ssh -o StrictHostKeyChecking=no ubuntu@$node_ip \'$remote_cmd\'
+    remote_cmd="'echo 123lau | sudo -S rm -rf /var/lib/rancher/k3s'"
+    echo
+    ssh -o StrictHostKeyChecking=no $node_ip \'$remote_cmd\'
     echo
   fi
 done
