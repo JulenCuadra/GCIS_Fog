@@ -113,13 +113,23 @@ def conciliar_spec_status(objeto, cliente):
 
 def crear_componentes(cliente, componente, app):
 	for j in range(app['spec']['replicas']):  # No me convence el aplicar así las replicas
-		componente = tipos.componente_recurso(componente['name'] + '-' + str(j + 1) + '-' + app['metadata']['name'],
-											  componente['image'],
-											  componente['previous'],
-											  componente['next'])
+		permanente = False
+		try:
+			permanente = componente['permanente']
+		except KeyError:
+			pass
+		if permanente == True:
+			componente_body = tipos.componente_recurso(componente['name'],
+												  componente['image'],
+												  componente['previous'],
+												  componente['next'], Permanente = True)
+			cliente.create_namespaced_custom_object(grupo, 'v1alpha1', namespace, 'componentes', componente_body)
+			break
+		else:
+			componente_body = tipos.componente_recurso(componente['name'] + '-' + str(j + 1) + '-' + app['metadata']['name'], componente['image'], componente['previous'], componente['next'])
+			cliente.create_namespaced_custom_object(grupo, 'v1alpha1', namespace, 'componentes', componente_body)
 		# Creo que es mejor aplicar algún label a los componentes en función de que aplicación formen.
 		# Si no distinguimos los nombres bien surge el problema de que los nombres de los componentes al solicitar dos aplicaciones colisionan.
-		cliente.create_namespaced_custom_object(grupo, 'v1alpha1', namespace, 'componentes', componente)
 
 def eliminar_componentes(aplicacion): # Ya no borrará deployments.
 	cliente=client.CustomObjectsApi()

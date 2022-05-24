@@ -34,7 +34,7 @@ def aplicacion(N):
     }
     return aplicacion
 
-def componente(nombre, imagen, anterior, siguiente):
+def componente(nombre, imagen, anterior, siguiente, **kwargs):
     componente = {
         'name': nombre,
         'image': imagen,
@@ -43,19 +43,35 @@ def componente(nombre, imagen, anterior, siguiente):
     }
     return componente
 
-def componente_recurso(nombre, imagen, anterior, siguiente):
-    componente_recurso = {
-        'apiVersion': 'misrecursos.aplicacion/v1alpha1',
-        'kind': 'Componente',
-        'metadata':{
-            'name': 'componente' + '-' + nombre,
-        },
-        'spec': {
-            'image': imagen,
-            'previous': anterior,
-            'next': siguiente
+def componente_recurso(nombre, imagen, anterior, siguiente, **kwargs):
+    permanente = kwargs.get('Permanente', None)
+    if permanente == None:
+        componente_recurso = {
+            'apiVersion': 'misrecursos.aplicacion/v1alpha1',
+            'kind': 'Componente',
+            'metadata':{
+                'name': 'componente' + '-' + nombre,
+            },
+            'spec': {
+                'image': imagen,
+                'previous': anterior,
+                'next': siguiente
+            }
         }
-    }
+    else:
+        componente_recurso = {
+            'apiVersion': 'misrecursos.aplicacion/v1alpha1',
+            'kind': 'Componente',
+            'metadata': {
+                'name': 'componente' + '-' + nombre,
+            },
+            'spec': {
+                'image': imagen,
+                'previous': anterior,
+                'next': siguiente,
+                'permanente' : permanente
+            }
+        }
     return componente_recurso
 
 def job_plantilla():

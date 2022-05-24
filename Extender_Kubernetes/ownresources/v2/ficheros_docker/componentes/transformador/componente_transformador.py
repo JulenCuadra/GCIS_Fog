@@ -23,10 +23,7 @@ def func_transformador():
             print('He recibido algo.')
             print(msg)
             valor = msg.value * 2
-            if msg.partition == 0:
-                productor.send('topico-datos-procesados', value=valor, partition=0)  # b'Hola'
-            if msg.partition == 1:
-                productor.send('topico-datos-procesados', value=valor, partition=1)  # b'Hola'
+            productor.send('topico-datos-procesados', value=valor, key=msg.key)
 
 if __name__ == '__main__':
     func_transformador()

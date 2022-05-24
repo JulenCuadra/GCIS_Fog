@@ -20,7 +20,7 @@ def func_productor():
     while True:
         numero = random.randrange(100,200,1)        
         print(numero)
-        productor.send('topico-datos-crudos', value=numero, partition=1) # b'Hola'
+        productor.send('topico-datos-crudos', value=numero, key=b'App-2') # b'Hola'
         # productor.flush()
         time.sleep(2)
 
