@@ -7,7 +7,7 @@ echo
 echo "########## SCANNING AVAILABLE NODES ##########"
 number=11 # Numero de equipos que forman el cluster (sin contar al maestro).
 k3s_token=$(sudo cat /var/lib/rancher/k3s/server/node-token)
-echo K3S_URL=https://"$host_ip":6443 K3S_TOKEN="$k3s_token" sh - ./k3s_install.sh --no>
+echo K3S_URL=https://"$host_ip":6443 K3S_TOKEN="$k3s_token" sh - ./k3s_install.sh --node-label node-type=multipass > k3s_install_aux.sh 
 
 for i in $(seq 1 $number)
 do
@@ -39,3 +39,4 @@ do
     echo
   fi
 done
+
