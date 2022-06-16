@@ -52,5 +52,5 @@ spec:
         persistentVolumeClaim:
           claimName: mosquitto-config
       nodeSelector:
-        node-type: factory-components
+        node-role.kubernetes.io/master : "true"
 status: {}
