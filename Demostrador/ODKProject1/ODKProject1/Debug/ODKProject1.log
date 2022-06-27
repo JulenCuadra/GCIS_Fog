@@ -1,0 +1,17 @@
+﻿  ---- ODK Code Generator started ----
+  Parsing file ODKProject1.odk
+  Generating file ODK_Execution.cpp
+  Generating file ODK_Types.h
+  Generating file ODK_Functions.h
+  Generating file ODKProject1.scl
+  ---- ODK Code Generator finished ----
+  stdafx.cpp
+  dllmain.cpp
+  ODKProject1.cpp
+  ODK_CpuReadData.cpp
+  ODK_CpuReadWriteData.cpp
+  ODK_StringHelper.cpp
+  Generando código...
+  ODK_Execution.cpp
+     Creando biblioteca C:\Users\803150\OneDrive - UPV EHU\TesisJulenCuadra\Demostrador\ODK_MQTT_demo\ODKProject1\Debug\ODKProject1.lib y objeto C:\Users\803150\OneDrive - UPV EHU\TesisJulenCuadra\Demostrador\ODK_MQTT_demo\ODKProject1\Debug\ODKProject1.exp
+  ODKProject1.vcxproj -> C:\Users\803150\OneDrive - UPV EHU\TesisJulenCuadra\Demostrador\ODK_MQTT_demo\ODKProject1\Debug\ODKProject1.dll
