@@ -1,6 +1,6 @@
 Este repositorio contiene la documentación relativa al demostrador.
 
-Descomprimir el .vs.7z en este directorio.
+Descomprimir el .vs.7z en el directorio /ODKProject1.
 
 Anotaciones sobre puesta en marcha del proyecto:
 
