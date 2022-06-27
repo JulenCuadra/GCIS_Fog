@@ -1,6 +1,6 @@
 Este repositorio contiene la documentación relativa al demostrador.
 
-Falta la carpeta .vs ya que no cabe en Github.
+Falta la carpeta .vs en /ODKProject1 ya que no cabe en Github.
 
 Anotaciones sobre puesta en marcha del proyecto:
 
