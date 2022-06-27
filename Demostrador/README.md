@@ -4,6 +4,8 @@ Falta la carpeta .vs en /ODKProject1 ya que no cabe en Github.
 
 Anotaciones sobre puesta en marcha del proyecto:
 
+  - Añadir mqtt a C:\
+
   - Esta demostración necesita tener un bróker desplegado (En nuestro caso, en el clúster físico.)
   - El NodePort que expone el bróker desplegado en el clúster, hace que puedas acceder a el bróker apuntando a cualquier nodo de Kubernetes y a su puerto NodePort.
   - La compartición de información entre la función de ODK y el FB se hace a través de memoria compartida. Los cambios que uno hagan a esa zona de memoria los verá el otro.
