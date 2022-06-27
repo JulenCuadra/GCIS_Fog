@@ -1,0 +1,20 @@
+﻿  ---- ODK Code Generator started ----
+  Parsing file ODKProject1.odk
+  Generating file ODK_Execution.cpp
+  Generating file ODK_Types.h
+  Generating file ODK_Functions.h
+  Generating file ODKProject1.scl
+  ---- ODK Code Generator finished ----
+  stdafx.cpp
+  dllmain.cpp
+  ODKProject1.cpp
+C:\Users\803150\OneDrive - UPV EHU\TesisJulenCuadra\Demostrador\ODK_MQTT_demo\ODKProject1\ODKProject1\ODKProject1.cpp(141,40): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\803150\OneDrive - UPV EHU\TesisJulenCuadra\Demostrador\ODK_MQTT_demo\ODKProject1\ODKProject1\ODKProject1.cpp(138,30): warning C4101: 'token': variable local sin referencia
+  ODK_CpuReadData.cpp
+  ODK_CpuReadWriteData.cpp
+  ODK_StringHelper.cpp
+  Generando código...
+  ODK_Execution.cpp
+     Creando biblioteca C:\Users\803150\OneDrive - UPV EHU\TesisJulenCuadra\Demostrador\ODK_MQTT_demo\ODKProject1\x64\Debug\ODKProject1.lib y objeto C:\Users\803150\OneDrive - UPV EHU\TesisJulenCuadra\Demostrador\ODK_MQTT_demo\ODKProject1\x64\Debug\ODKProject1.exp
+ODKProject1.obj : error LNK2019: símbolo externo MQTTClient_create sin resolver al que se hace referencia en la función OnLoad
+C:\Users\803150\OneDrive - UPV EHU\TesisJulenCuadra\Demostrador\ODK_MQTT_demo\ODKProject1\x64\Debug\ODKProject1.dll : fatal error LNK1120: 1 externos sin resolver
