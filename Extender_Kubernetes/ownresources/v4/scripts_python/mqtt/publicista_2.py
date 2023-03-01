@@ -26,12 +26,12 @@ Plan_de_fabricacion = {
         'Control_Flag_Service_Completed' : False
     },
     'str_in' : {
-        'Id_Machine_Reference' : 11,
-        'Id_Order_Reference' : 11,
-        'Id_Batch_Reference' : 111,
-        'Id_Ref_Subproduct_Type' : 1,
-        'Operation_Ref_Service_Type' : 4,
-        'Operation_No_of_Items' : 2
+        'Id_Machine_Reference' : 22,
+        'Id_Order_Reference' : 22,
+        'Id_Batch_Reference' : 222,
+        'Id_Ref_Subproduct_Type' : 2,
+        'Operation_Ref_Service_Type' : 3,
+        'Operation_No_of_Items' : 4
     }
 }
 
@@ -40,7 +40,7 @@ def publicar_plan_fabricacion():
     clienteMqtt = mqtt.Client()
     clienteMqtt.username_pw_set(USER, password=PASSWORD)
     clienteMqtt.connect(IP_BROKER, 31883)
-    clienteMqtt.publish('Machine/to', payload=dumps(Plan_de_fabricacion).encode('utf-8'))
+    clienteMqtt.publish('Machine/to/2', payload=dumps(Plan_de_fabricacion).encode('utf-8'))
 
 if __name__ == '__main__':
     publicar_plan_fabricacion()

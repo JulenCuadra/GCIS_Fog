@@ -47,8 +47,8 @@ def suscriptor():
     clienteMqtt.connect(IP_BROKER, 31883)
     clienteMqtt.loop_start()
     # clienteMqtt.subscribe('Machine/from', qos=0)
-    clienteMqtt.subscribe('Asset/assembly-station/11', qos=0)
-    # clienteMqtt.subscribe('Machine/to', qos=0)
+    clienteMqtt.subscribe('Asset/assembly-station/22', qos=0)
+    # clienteMqtt.subscribe('Machine/to/2', qos=0)
     clienteMqtt.on_connect = on_connect
     clienteMqtt.on_message = on_message
     while True:
