@@ -1,0 +1,19 @@
+component_controller_role:
+  yaml:
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: role-event-triggerer
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - events
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+  - create
+  - delete
