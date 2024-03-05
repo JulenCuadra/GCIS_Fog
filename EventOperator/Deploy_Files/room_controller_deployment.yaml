@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: room-controller
+  name: room-controller-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: room-controller
+  template:
+    metadata:
+      labels:
+        app: room-controller
+    spec:
+      containers:
+      - env:
+        - name: LEVEL_NAME
+          value: room
+        - name: LEVEL_NAME_PLURAL
+          value: rooms
+        - name: LOWER_LEVEL_NAME
+          value: application
+        - name: LOWER_LEVEL_NAME_PLURAL
+          value: applications
+        - name: HIGHER_LEVEL_NAME
+          value: residence
+        - name: HIGHER_LEVEL_NAME_PLURAL
+          value: residences
+        image: ekhurtado/gcis-fog:generic_app_management_level_controller-v4.0
+        imagePullPolicy: Always
+        name: room-controller
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        node-role.kubernetes.io/master: 'true'
+      serviceAccountName: service-account-controller-room

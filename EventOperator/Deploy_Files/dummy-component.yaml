@@ -1,0 +1,25 @@
+apiVersion: ehu.gcis.org/v1alpha1
+kind: Component
+metadata:
+  name: dummy-component
+  labels:
+    applicationName: dummy-app
+    shortName: comp
+spec:
+  name: dummy-component
+  image: julencuadra/gcis-fog:dummy-component #TODO modificar según lo que se construya.
+  flowConfig:
+    next:
+      - name: assembly-robot-1-acquisition-sink-exist
+        IFMHtopic: data-assembly-robot-1-acquisition-sink-exist
+  customization:
+    - "MQTT_TOPIC=Asset/assembly-station/11"
+    - "MQTT_CLIENT_NAME=assembly-robot-1-acquisition-source-mqtt-kafka"
+  permanent: False
+  events:
+    - name: dummy-event
+      actions:
+        - name: dummy-action
+          image: julencuadra/gcis-fog:dummy-action
+          customization:
+            - "CustomParameters"
